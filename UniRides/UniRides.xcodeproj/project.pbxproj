@@ -35,16 +35,6 @@
 			path = UniRides;
 			sourceTree = "<group>";
 		};
-		02E3F93B2D0376CA000E301F /* UniRidesTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = UniRidesTests;
-			sourceTree = "<group>";
-		};
-		02E3F9452D0376CA000E301F /* UniRidesUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = UniRidesUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				02E3F92A2D0376C5000E301F /* UniRides */,
-				02E3F93B2D0376CA000E301F /* UniRidesTests */,
-				02E3F9452D0376CA000E301F /* UniRidesUITests */,
 				02E3F9292D0376C5000E301F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,9 +118,6 @@
 			dependencies = (
 				02E3F93A2D0376CA000E301F /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				02E3F93B2D0376CA000E301F /* UniRidesTests */,
-			);
 			name = UniRidesTests;
 			packageProductDependencies = (
 			);
@@ -152,9 +137,6 @@
 			);
 			dependencies = (
 				02E3F9442D0376CA000E301F /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				02E3F9452D0376CA000E301F /* UniRidesUITests */,
 			);
 			name = UniRidesUITests;
 			packageProductDependencies = (
