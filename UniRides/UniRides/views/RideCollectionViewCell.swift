@@ -30,7 +30,7 @@ class RideCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Configure
 
-    func configure(ride: Car) {
+    func configure(ride: Ride) {
         carImage.sd_setImage(with: URL(string: ride.imageUrl))
         rideDestination.text = "\(ride.startLocation) -> \(ride.endLocation)"
         rideDetails.text = "\(ride.startTime) • \(ride.name) • $\(ride.price)"

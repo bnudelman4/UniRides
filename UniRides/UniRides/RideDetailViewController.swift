@@ -23,8 +23,8 @@ class RideDetailViewController: UIViewController {
     
     // MARK: - Initialization
     
-    init(recipe: Car) {
-        self.recipe = recipe
+    init(ride: Ride) {
+        self.ride = ride
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,7 +40,7 @@ class RideDetailViewController: UIViewController {
         view.backgroundColor = .white
         
         setupCollectionView()
-        configure(with: recipe)
+        configure(with: ride)
         setupCustomBackButton()
         setupBookmarkButton()
     }
@@ -58,7 +58,7 @@ class RideDetailViewController: UIViewController {
         descriptionLabel.text = ride.description
         
         let bookmarked = UserDefaults.standard.array(forKey: "boomarked") as? [String] ?? []
-        if bookmarked.contains(recipe.id) {
+        if bookmarked.contains(ride.id) {
             let bookmarkImage = UIImage(systemName: "bookmark.fill")
             bookmarkButton.setImage(bookmarkImage, for: .normal)
             bookmarkButton.tintColor = .black
@@ -108,7 +108,7 @@ class RideDetailViewController: UIViewController {
         descriptionLabel.textColor = .lightGray
         view.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(recipeTitleLabel.snp.bottom).offset(16)
+            make.top.equalTo(rideTitleLabel.snp.bottom).offset(16)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(32)
         }
         

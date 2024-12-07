@@ -16,16 +16,16 @@ class NetworkManager {
     let decoder = JSONDecoder()
 //
     // MARK: - Requests
-    func fetchAllRides(completion: @escaping ([Car]) -> Void){
+    func fetchAllRides(completion: @escaping ([Ride]) -> Void){
         let devEndpoint: String = "https://api.jsonbin.io/v3/b/64d033f18e4aa6225ecbcf9f?meta=false"
         decoder.dateDecodingStrategy = .iso8601
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
-        AF.request(devEndpoint, method: .get).validate().responseDecodable(of: [Car].self, decoder: decoder){
+        AF.request(devEndpoint, method: .get).validate().responseDecodable(of: [Ride].self, decoder: decoder){
             response in switch response.result {
             case .success(let rides):
                 print("Successfully fetched rides: \(rides)")
-                completion(recipes)
+                completion(rides)
             case .failure(let error):
                 print("Error fetching rides: \(error)")
             }

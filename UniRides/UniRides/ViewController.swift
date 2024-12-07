@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-extension ViewController: RecipeDetailViewDelegate {
+extension ViewController: RideDetailViewDelegate {
     func didUpdateBookmarks() {
         // Reload the collection view to reflect bookmark changes
         rideCollectionView.reloadData()
@@ -17,12 +17,12 @@ class ViewController: UIViewController {
     private let leftTitle = UILabel()
     let topContainerView = UIView()
     private var selectedFilters: Set<String> = []
-    private var filteredRides: [Car] = []
+    private var filteredRides: [Ride] = []
 
     // MARK: - Properties (data)
     let filters = ["All", "My Rides", "Pending Rides", "Joined Rides"]
     
-    private var rides : [Car] = []
+    private var rides : [Ride] = []
 
     // MARK: - View Lifecycle
 
@@ -43,13 +43,13 @@ class ViewController: UIViewController {
     // MARK: - Networking
     
     @objc private func fetchAllRides(){
-        NetworkManager.shared.fetchAllRides { [weak self] (rides: [Car]) in
+        NetworkManager.shared.fetchAllRides { [weak self] (rides: [Ride]) in
             guard let self else {return}
             self.rides = rides
             self.filteredRides = rides
             
             DispatchQueue.main.async {
-                self.recipeCollectionView.reloadData()
+                self.rideCollectionView.reloadData()
                 self.filterCollectionView.reloadData()
             }
         }
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         view.addSubview(topContainerView)
         topContainerView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(view.snp_topMargin) //change to top of the screen
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top) //change to top of the screen
             make.height.equalTo(80) //change this
         }
             
@@ -132,7 +132,7 @@ class ViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 32)
         rideCollectionView.collectionViewLayout = layout
 
-        view.addSubview(recipeCollectionView)
+        view.addSubview(rideCollectionView)
         rideCollectionView.snp.makeConstraints { make in
             make.top.equalTo(filterCollectionView.snp.bottom).offset(16)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -186,12 +186,12 @@ extension ViewController: UICollectionViewDelegate {
             filterRides()
             
             filterCollectionView.reloadData()
-            recipeCollectionView.reloadData()
+            rideCollectionView.reloadData()
         }
         
         if collectionView == rideCollectionView {
             let selectedRide = filteredRides[indexPath.row]
-            let detailVC = RecipeDetailViewController(recipe: selectedRide)
+            let detailVC = RideDetailViewController(ride: selectedRide)
             
             navigationController?.pushViewController(detailVC, animated: true)
             detailVC.delegate = self
@@ -236,7 +236,7 @@ extension ViewController: UICollectionViewDataSource {
             cell.configure(with: filter, isSelected: isSelected)
 
             return cell
-        } else if collectionView == recipeCollectionView {
+        } else if collectionView == rideCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RideCollectionViewCell.reuse, for: indexPath) as! RideCollectionViewCell
             let ride = filteredRides[indexPath.row]
             cell.configure(ride: ride)
