@@ -28,7 +28,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
     // MARK: - Configuration
     func configure(with title: String, isSelected: Bool) {
         filterButton.setTitle(title, for: .normal)
-        filterButton.backgroundColor = isSelected ? UIColor.systemOrange.withAlphaComponent(0.8) : .systemGray6
+        filterButton.backgroundColor = isSelected ? UIColor(red: 162.0/255, green: 232.0/255, blue: 241.0/255, alpha: 1) : .systemGray6
         filterButton.setTitleColor(isSelected ? .white : .black, for: .normal)
     }
 

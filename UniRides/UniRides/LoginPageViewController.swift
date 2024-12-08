@@ -11,12 +11,33 @@ class LoginPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = UIColor(red: 255/255, green: 209/255, blue: 209/255, alpha: 1.0)
+        
+        self.navigationItem.hidesBackButton = true
+
+        // Create a custom UIButton
+        let backButton = UIButton(type: .system)
+        backButton.setTitle("< Back", for: .normal) // Set custom text
+        backButton.setTitleColor(.black, for: .normal) // Set text color
+        backButton.titleLabel?.font = UIFont(name: "Anybody-Bold", size: 30) // Set font and size
+        backButton.addTarget(self, action: #selector(backToLanding), for: .touchUpInside)
+
+        // Add the UIButton as a UIBarButtonItem
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
         
         // Email Text Field
         let emailTextField = UITextField()
         emailTextField.placeholder = "Email"
         emailTextField.borderStyle = .roundedRect
+        emailTextField.layer.borderWidth = 2
+        emailTextField.layer.cornerRadius = 10
+        emailTextField.layer.borderColor = UIColor.black.cgColor
+        emailTextField.attributedPlaceholder = NSAttributedString(
+            string: "Email",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
+        )
+        emailTextField.font = UIFont(name: "Anybody-Bold", size: 30)
+        emailTextField.textColor = UIColor.black
         emailTextField.keyboardType = .emailAddress
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailTextField)
@@ -24,6 +45,15 @@ class LoginPageViewController: UIViewController {
         // Password Text Field
         let passwordTextField = UITextField()
         passwordTextField.placeholder = "Password"
+        passwordTextField.layer.borderWidth = 2
+        passwordTextField.layer.cornerRadius = 10
+        passwordTextField.layer.borderColor = UIColor.black.cgColor
+        passwordTextField.attributedPlaceholder = NSAttributedString(
+            string: "Password",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
+        )
+        passwordTextField.font = UIFont(name: "Anybody-Bold", size: 30)
+        passwordTextField.textColor = UIColor.black
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.isSecureTextEntry = true
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -31,22 +61,22 @@ class LoginPageViewController: UIViewController {
         
         // Login Button
         let loginButton = UIButton(type: .system)
-        loginButton.setTitle("Log In", for: .normal)
+        loginButton.setTitle("Login", for: .normal)
+        loginButton.titleLabel?.font = UIFont(name: "Anybody-Bold", size: 40)
+        loginButton.backgroundColor = UIColor(red: 162/255, green: 232/255, blue: 241/255, alpha: 1.0)
+        loginButton.layer.borderWidth = 7
+        loginButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 60, bottom: 20, right: 60)
+        loginButton.layer.borderColor = UIColor.black.cgColor
+        loginButton.layer.cornerRadius = 39
+        loginButton.setTitleColor(.black, for: .normal)
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton)
         
-        // Back Button
-        let backButton = UIButton(type: .system)
-        backButton.setTitle("Back", for: .normal)
-        backButton.addTarget(self, action: #selector(backToLanding), for: .touchUpInside)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(backButton)
-        
         // Layout Constraints
         NSLayoutConstraint.activate([
             emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emailTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            emailTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 220),
             emailTextField.widthAnchor.constraint(equalToConstant: 300),
             
             passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -55,19 +85,16 @@ class LoginPageViewController: UIViewController {
             
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
-            
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
         ])
     }
     
     @objc func loginTapped() {
         // Add GET request logic to validate user
-        print("Log in tapped")
+        let ridesVC = RidesViewController()
+        navigationController?.pushViewController(ridesVC, animated: true)
     }
     
     @objc func backToLanding() {
         navigationController?.popViewController(animated: true)
     }
 }
-

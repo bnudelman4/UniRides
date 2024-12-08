@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02E3FC392D048D11000E301F /* RideDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E3FC382D048D11000E301F /* RideDetailViewController.swift */; };
+		02E3FC3B2D048D44000E301F /* RidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E3FC3A2D048D44000E301F /* RidesViewController.swift */; };
+		02E3FC422D04B57F000E301F /* CreateRidePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E3FC412D04B577000E301F /* CreateRidePageViewController.swift */; };
 		2E07F6082AF1CFFD00395214 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2E07F6072AF1CFFD00395214 /* Alamofire */; };
 		2E07F60B2AF1D01E00395214 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E07F60A2AF1D01E00395214 /* SnapKit */; };
 		2E07F6102AF1D03B00395214 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2E07F60F2AF1D03B00395214 /* SDWebImage */; };
@@ -25,6 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02E3FC382D048D11000E301F /* RideDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideDetailViewController.swift; sourceTree = "<group>"; };
+		02E3FC3A2D048D44000E301F /* RidesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesViewController.swift; sourceTree = "<group>"; };
+		02E3FC412D04B577000E301F /* CreateRidePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRidePageViewController.swift; sourceTree = "<group>"; };
 		2E07F6142AF1D05700395214 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		2E07F6162AF1D06A00395214 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		2E07F6182AF1D09200395214 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,9 +102,12 @@
 				2E07F6132AF1D04700395214 /* Extensions */,
 				2ED700572AF1CF5600B7C687 /* AppDelegate.swift */,
 				2ED700592AF1CF5600B7C687 /* SceneDelegate.swift */,
+				02E3FC3A2D048D44000E301F /* RidesViewController.swift */,
 				AD7E0FAA2D03F97F00027532 /* LandingPageViewController.swift */,
 				AD7E0FAC2D03F9BD00027532 /* LoginPageViewController.swift */,
 				AD7E0FAE2D03FA6900027532 /* SignupPageViewController.swift */,
+				02E3FC412D04B577000E301F /* CreateRidePageViewController.swift */,
+				02E3FC382D048D11000E301F /* RideDetailViewController.swift */,
 				AD7E0FB02D04019900027532 /* Fonts */,
 				2E07F6182AF1D09200395214 /* ViewController.swift */,
 				AD9646852CF563EE00112BD6 /* RecipeDetailViewController.swift */,
@@ -196,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02E3FC3B2D048D44000E301F /* RidesViewController.swift in Sources */,
 				2E07F6192AF1D09200395214 /* ViewController.swift in Sources */,
 				2E07F6152AF1D05700395214 /* UIFont+Extension.swift in Sources */,
 				2ED700582AF1CF5600B7C687 /* AppDelegate.swift in Sources */,
@@ -203,8 +213,10 @@
 				AD7E0FAB2D03F98C00027532 /* LandingPageViewController.swift in Sources */,
 				AD7E0FAD2D03F9D800027532 /* LoginPageViewController.swift in Sources */,
 				AD9646862CF5640500112BD6 /* RecipeDetailViewController.swift in Sources */,
+				02E3FC422D04B57F000E301F /* CreateRidePageViewController.swift in Sources */,
 				2E07F6172AF1D06A00395214 /* UIColor+Extension.swift in Sources */,
 				AD7E0FAF2D03FA7300027532 /* SignupPageViewController.swift in Sources */,
+				02E3FC392D048D11000E301F /* RideDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
