@@ -55,6 +55,7 @@ class RideDetailViewController: UIViewController {
         
         // Set labels
         rideTitleLabel.text = ride.driver.firstName + " " + ride.driver.lastName
+        descriptionLabel.text = "\(ride.startTime) • $\(ride.price)"
         
 //        let bookmarked = UserDefaults.standard.array(forKey: "boomarked") as? [String] ?? []
 //        if bookmarked.contains(ride.id) {

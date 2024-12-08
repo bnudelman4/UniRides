@@ -9,16 +9,14 @@
 import UIKit
 
 class CreateRidePageViewController: UIViewController {
-    
-
-    // Fields for user input
+    // Fields for user input
     let imageTextField = UITextField() // Placeholder for an image picker
     let startLocationTextField = UITextField()
-    let endLocationTextField = UITextField()
+    let endLocationTextField = UITextField()
     let startTimeTextField = UITextField()
     let totalCapacityTextField = UITextField()
     let priceTextField = UITextField()
-    let carTypeTextField = UITextField()
+    let carTypeTextField = UITextField()
     let licensePlateTextField = UITextField()
     
     override func viewDidLoad() {
@@ -164,5 +162,8 @@ class CreateRidePageViewController: UIViewController {
         } catch {
             print("Error encoding ride data: \(error.localizedDescription)")
         }
-    }
+    }
 }
+
+
+   
