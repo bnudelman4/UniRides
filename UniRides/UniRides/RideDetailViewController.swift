@@ -15,11 +15,17 @@ class RideDetailViewController: UIViewController {
     // MARK: - Properties
     
     private var ride: Ride
-    
+    var email: String?
     private let rideImageView = UIImageView()
     private let rideTitleLabel = UILabel()
     private let descriptionLabel = UILabel()
-//    private let bookmarkButton = UIButton(type: .system)
+    
+    let leaveRideButton = UIButton(type: .system)
+    let joinRideButton = UIButton(type: .system)
+    let pendingRideButton = UIButton(type: .system)
+    let acceptButton = UIButton(type: .system)
+    let declineButton = UIButton(type: .system)
+    let deleteRideButton = UIButton(type: .system)
     
     // MARK: - Initialization
     
@@ -42,7 +48,6 @@ class RideDetailViewController: UIViewController {
         setupCollectionView()
         configure(with: ride)
         setupCustomBackButton()
-//        setupBookmarkButton()
     }
     
     // MARK: - Configure with Recipe Data
@@ -52,33 +57,123 @@ class RideDetailViewController: UIViewController {
         if let imageUrl = URL(string: ride.image.url) {
             rideImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder"))
         }
+        rideImageView.layer.cornerRadius = 39
+        rideImageView.layer.borderWidth = 7
         
         // Set labels
-        rideTitleLabel.text = ride.driver.firstName + " " + ride.driver.lastName
-        descriptionLabel.text = "\(ride.startTime) • $\(ride.price)"
+        rideTitleLabel.text = ride.startLocation + "→" + ride.endLocation
+        rideTitleLabel.textColor = .black
+        rideTitleLabel.font = UIFont(name: "Anybody-Bold", size: 27)
+        descriptionLabel.text = "\(ride.startTime) • $\(ride.price) • \(ride.driver.firstName) \(ride.driver.lastName)"
+        descriptionLabel.textColor = .black
+        descriptionLabel.font = UIFont(name: "Anybody-Bold", size: 20)
         
-//        let bookmarked = UserDefaults.standard.array(forKey: "boomarked") as? [String] ?? []
-//        if bookmarked.contains(ride.id) {
-//            let bookmarkImage = UIImage(systemName: "bookmark.fill")
-//            bookmarkButton.setImage(bookmarkImage, for: .normal)
-//            bookmarkButton.tintColor = .black
-//        } else {
-//            let bookmarkImage = UIImage(systemName: "bookmark")
-//            bookmarkButton.setImage(bookmarkImage, for: .normal)
-//            bookmarkButton.tintColor = .black
-//        }
+        leaveRideButton.setTitle("Leave Ride", for: .normal)
+        leaveRideButton.titleLabel?.font = UIFont(name: "Anybody-Bold", size: 27)
+        leaveRideButton.backgroundColor = UIColor(red: 162/255, green: 232/255, blue: 241/255, alpha: 1.0)
+        leaveRideButton.layer.borderWidth = 7
+        leaveRideButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 40, bottom: 20, right: 40)
+        leaveRideButton.layer.borderColor = UIColor.black.cgColor
+        leaveRideButton.layer.cornerRadius = 39
+        leaveRideButton.setTitleColor(.black, for: .normal)
+        leaveRideButton.addTarget(self, action: #selector(backToDetailedView), for: .touchUpInside)
+        leaveRideButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        joinRideButton.setTitle("Join Ride", for: .normal)
+        joinRideButton.titleLabel?.font = UIFont(name: "Anybody-Bold", size: 27)
+        joinRideButton.backgroundColor = UIColor(red: 162/255, green: 232/255, blue: 241/255, alpha: 1.0)
+        joinRideButton.layer.borderWidth = 7
+        joinRideButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 40, bottom: 20, right: 40)
+        joinRideButton.layer.borderColor = UIColor.black.cgColor
+        joinRideButton.layer.cornerRadius = 39
+        joinRideButton.setTitleColor(.black, for: .normal)
+        joinRideButton.addTarget(self, action: #selector(backToDetailedView), for: .touchUpInside)
+        joinRideButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        pendingRideButton.setTitle("Pending Ride", for: .normal)
+        pendingRideButton.titleLabel?.font = UIFont(name: "Anybody-Bold", size: 27)
+        pendingRideButton.backgroundColor = UIColor(red: 162/255, green: 232/255, blue: 241/255, alpha: 1.0)
+        pendingRideButton.layer.borderWidth = 7
+        pendingRideButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 40, bottom: 20, right: 40)
+        pendingRideButton.layer.borderColor = UIColor.black.cgColor
+        pendingRideButton.layer.cornerRadius = 39
+        pendingRideButton.setTitleColor(.black, for: .normal)
+        leaveRideButton.addTarget(self, action: #selector(backToDetailedView), for: .touchUpInside)
+        pendingRideButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        deleteRideButton.setTitle("Delete Ride", for: .normal)
+        deleteRideButton.titleLabel?.font = UIFont(name: "Anybody-Bold", size: 27)
+        deleteRideButton.backgroundColor = UIColor(red: 162/255, green: 232/255, blue: 241/255, alpha: 1.0)
+        deleteRideButton.layer.borderWidth = 7
+        deleteRideButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 40, bottom: 20, right: 40)
+        deleteRideButton.layer.borderColor = UIColor.black.cgColor
+        deleteRideButton.layer.cornerRadius = 39
+        deleteRideButton.setTitleColor(.black, for: .normal)
+        leaveRideButton.addTarget(self, action: #selector(backToDetailedView), for: .touchUpInside)
+        deleteRideButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        var isContainedCurrent: Bool = false
+        var isContainedPending: Bool = false
+        
+        for (_, rider) in ride.currentRiders.enumerated() {
+            if rider.email == email{
+                isContainedCurrent = true
+            }
+        }
+        
+        for (_, rider) in ride.pendingRiders.enumerated() {
+            if rider.email == email{
+                isContainedPending = true
+            }
+        }
+        
+        if (ride.currentRiders[0].email != email && isContainedCurrent){
+            descriptionLabel.text! += "\n\(ride.driver.phoneNumber) • \(ride.driver.email)\n\(ride.carType) • \(ride.licensePlate)"
+            descriptionLabel.text! += "Current Riders:\n"
+            for (_, rider) in ride.currentRiders.enumerated() {
+                descriptionLabel.text! += "\n\(rider.firstName) \(rider.lastName)"
+            }
+            view.addSubview(leaveRideButton)
+            NSLayoutConstraint.activate([
+                leaveRideButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                leaveRideButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 30),
+            ])
+            //ADD LEAVE RIDE BUTTON
+        } else if (!isContainedCurrent && !isContainedPending && ride.currentRiders.count < ride.totalCapacity){
+            view.addSubview(joinRideButton)
+            NSLayoutConstraint.activate([
+                joinRideButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                joinRideButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 30),
+            ])
+            //ADD JOIN RIDE BUTTON
+        } else if (isContainedPending){
+            view.addSubview(pendingRideButton)
+            NSLayoutConstraint.activate([
+                pendingRideButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                pendingRideButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 30),
+            ])
+            //ADD PENDING RIDE BUTTON
+        } else if (ride.currentRiders[0].email == email){
+            descriptionLabel.text! += "\n\(ride.driver.phoneNumber) • \(ride.driver.email)\n\(ride.carType) • \(ride.licensePlate)"
+            descriptionLabel.text! += "Current Riders:\n"
+            for (_, rider) in ride.currentRiders.enumerated() {
+                descriptionLabel.text! += "\n\(rider.firstName) \(rider.lastName)"
+            }
+            descriptionLabel.text! += "Pending Riders:\n"
+            for (_, rider) in ride.pendingRiders.enumerated() {
+                descriptionLabel.text! += "\n\(rider.firstName) \(rider.lastName)"
+                // ADD ACCEPT OR DECLINE BUTTON FOR EACH OF THESE
+            }
+            view.addSubview(deleteRideButton)
+            NSLayoutConstraint.activate([
+                deleteRideButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                deleteRideButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 30),
+            ])
+            //ADD DELETE RIDE BUTTON
+        }
     }
     
     // MARK: - Setup UI
-    
-//    private func setupBookmarkButton(){
-//        bookmarkButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right:16)
-//        bookmarkButton.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
-//
-//        let bookmarkBarButtonItem = UIBarButtonItem(customView: bookmarkButton)
-//
-//        navigationItem.rightBarButtonItem = bookmarkBarButtonItem
-//    }
     
     private func setupCollectionView() {
         // Image View Setup
@@ -131,24 +226,8 @@ class RideDetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-//    @objc private func bookmarkButtonTapped() {
-//        var bookmarked = UserDefaults.standard.array(forKey: "boomarked") as? [String] ?? []
-//        
-//        if bookmarked.contains(ride.id) {
-//            bookmarked.removeAll { id in id == ride.id }
-//            let bookmarkImage = UIImage(systemName: "bookmark")
-//            bookmarkButton.setImage(bookmarkImage, for: .normal)
-//            bookmarkButton.tintColor = .black
-//        } else {
-//            bookmarked.append(ride.id)
-//            let bookmarkImage = UIImage(systemName: "bookmark.fill")
-//            bookmarkButton.setImage(bookmarkImage, for: .normal)
-//            bookmarkButton.tintColor = .black
-//        }
-//        
-//        UserDefaults.standard.setValue(bookmarked, forKey: "boomarked")
-//        
-//        // Notify the delegate
-//        delegate?.didUpdateBookmarks()
-//    }
+    @objc func backToDetailedView() {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }

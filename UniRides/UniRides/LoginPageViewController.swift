@@ -7,7 +7,8 @@
 import UIKit
 
 class LoginPageViewController: UIViewController {
-
+    let emailTextField = UITextField()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +27,6 @@ class LoginPageViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
         
         // Email Text Field
-        let emailTextField = UITextField()
         emailTextField.placeholder = "Email"
         emailTextField.borderStyle = .roundedRect
         emailTextField.layer.borderWidth = 2
@@ -88,9 +88,16 @@ class LoginPageViewController: UIViewController {
         ])
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRidesDetail", let destinationVC = segue.destination as? RideDetailViewController {
+            destinationVC.email = self.emailTextField.text
+        }
+    }
+    
     @objc func loginTapped() {
         // Add GET request logic to validate user
         let ridesVC = RidesViewController()
+        ridesVC.email = self.emailTextField.text
         navigationController?.pushViewController(ridesVC, animated: true)
     }
     

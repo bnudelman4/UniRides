@@ -9,7 +9,6 @@ class RideCollectionViewCell: UICollectionViewCell {
     private let carImage = UIImageView()
     private let rideDestination = UILabel()
     private let rideDetails = UILabel()
-//    var bookmarkImageView: UIImageView!
 
     static let reuse = "RecipeCollectionViewCellReuse"
 
@@ -21,7 +20,6 @@ class RideCollectionViewCell: UICollectionViewCell {
         setupCarImage()
         setupRideDestination()
         setupRideDetails()
-//        setupBookma?rk()
     }
 
     required init?(coder: NSCoder) {
@@ -32,34 +30,12 @@ class RideCollectionViewCell: UICollectionViewCell {
 
     func configure(ride: Ride) {
         carImage.sd_setImage(with: URL(string: ride.image.url))
-        rideDestination.text = "\(ride.startLocation) -> \(ride.endLocation)"
+        rideDestination.text = "\(ride.startLocation) → \(ride.endLocation)"
         rideDetails.text = "\(ride.startTime) • \(ride.driver.firstName) \(ride.driver.lastName) • $\(ride.price)"
         
-//        let bookmarked = UserDefaults.standard.array(forKey: "boomarked") as? [String] ?? []
-//        if bookmarked.contains(ride.id) {
-//            bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
-//            bookmarkImageView.tintColor = UIColor.systemOrange.withAlphaComponent(0.8)
-//            bookmarkImageView.isHidden = false
-//        } else {
-//            bookmarkImageView.isHidden = true
-//        }
     }
 
     // MARK: - Set Up Views
-//    private func setupBookmark(){
-//        bookmarkImageView = UIImageView()
-//        bookmarkImageView.contentMode = .scaleAspectFit
-//               
-//        contentView.addSubview(bookmarkImageView)
-//               
-//        bookmarkImageView.snp.makeConstraints { make in
-//            make.top.equalTo(rideDestination.snp.top).offset(0)
-//            make.trailing.equalTo(contentView.snp.trailing).offset(0)
-//            make.width.height.equalTo(24)
-//        }
-//        
-//        bookmarkImageView.image = UIImage(systemName: "bookmark")
-//    }
 
     private func setupCarImage() {
         carImage.contentMode = .scaleAspectFill

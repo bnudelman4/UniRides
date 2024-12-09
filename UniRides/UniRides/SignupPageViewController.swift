@@ -169,6 +169,7 @@ class SignupPageViewController: UIViewController {
     
     @objc func signupTapped() {
         let ridesVC = RidesViewController()
+        ridesVC.email = self.emailTextField.text
         let newUser = User(email: emailTextField.text!, firstName: firstNameTextField.text!, id: abs(UUID().hashValue), lastName: lastNameTextField.text!, phoneNumber: phoneNumberTextField.text!)
         NetworkManager.shared.addToUsers(user: newUser){ [weak self] user in
                     guard let self = self else {return}
